@@ -19,13 +19,54 @@
 
 ---
 
-## 📦 Installation
+## 🌐 Live Demo & Showcase
+
+- **Live Preview (Vercel)**: [https://dessert-profile.vercel.app](https://dessert-profile.vercel.app)
+
+---
+
+## 📦 Installation & CDN Usage
+
+### ⚡ 1. Direct jsDelivr CDN (Instant Setup via GitHub)
+
+Gunakan langsung di tag `<head>` HTML Anda tanpa perlu instalasi apa pun:
+
+```html
+<!-- DESSERT CSS v2.0 (Minified) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Luxarions/Dessert-Profile@main/dist/dessert.min.css">
+
+<!-- Core DESSERT Library (UMD Minified) -->
+<script src="https://cdn.jsdelivr.net/gh/Luxarions/Dessert-Profile@main/dist/dessert.umd.min.js"></script>
+
+<!-- Asset Loader Plugin (UMD Minified) -->
+<script src="https://cdn.jsdelivr.net/gh/Luxarions/Dessert-Profile@main/dist/loader.umd.min.js"></script>
+
+<script>
+  // Aktifkan loader dan auto-init
+  DESSERT.use(DESSERTLoader.loaderPlugin);
+  DESSERT.init();
+  DESSERT.alert('DESSERT CDN is Ready!', 'success');
+</script>
+```
+
+#### Atau Menggunakan ES Module Langsung di Browser:
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Luxarions/Dessert-Profile@main/dist/dessert.min.css">
+
+<script type="module">
+  import DESSERT from 'https://cdn.jsdelivr.net/gh/Luxarions/Dessert-Profile@main/dist/dessert.esm.min.js';
+  import { loaderPlugin } from 'https://cdn.jsdelivr.net/gh/Luxarions/Dessert-Profile@main/dist/loader.esm.min.js';
+
+  DESSERT.use(loaderPlugin);
+  DESSERT.alert('ES Module loaded via jsDelivr CDN', 'info');
+</script>
+```
+
+### 📦 2. Via NPM Registry
 
 ```bash
 npm install dessert
 ```
-
-CDN:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dessert/dist/dessert.min.css">

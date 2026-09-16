@@ -1,6 +1,6 @@
 node_modules/
 build/
-dist/
+# dist/ is included so jsDelivr CDN can serve pre-built minified bundles
 coverage/
 .DS_Store
 *.log
