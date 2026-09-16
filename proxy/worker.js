@@ -30,12 +30,27 @@ export default {
     reqHeaders.set('X-Real-IP', request.headers.get('cf-connecting-ip') || '');
 
     // Fetch upstream content silently (reverse proxy)
-    const response = await fetch(targetUrl.toString(), {
+    let response = await fetch(targetUrl.toString(), {
       method: request.method,
       headers: reqHeaders,
       body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : undefined,
       redirect: 'follow',
     });
+
+    // Smart fallback: if /dist/<file> is requested and origin returns 404, fallback to /<file>
+    if (response.status === 404 && url.pathname.startsWith('/dist/')) {
+      const fallbackUrl = new URL(targetUrl.toString());
+      fallbackUrl.pathname = url.pathname.replace(/^\/dist/, '');
+      const fallbackResponse = await fetch(fallbackUrl.toString(), {
+        method: request.method,
+        headers: reqHeaders,
+        body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : undefined,
+        redirect: 'follow',
+      });
+      if (fallbackResponse.status === 200) {
+        response = fallbackResponse;
+      }
+    }
 
     // Create a mutable response headers object
     const resHeaders = new Headers(response.headers);

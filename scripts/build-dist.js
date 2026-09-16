@@ -91,3 +91,13 @@ ${code}
 
 buildBundle('src/index.js', 'dessert', 'DESSERT');
 buildBundle('src/plugins/loader/LoaderPlugin.js', 'loader', 'DESSERTLoader');
+
+// Mirror all bundles into dist/dist/ so requests to both /file and /dist/file resolve perfectly
+import { readdirSync, copyFileSync } from 'node:fs';
+mkdirSync('dist/dist', { recursive: true });
+for (const f of readdirSync('dist')) {
+  if (f !== 'dist' && f !== 'assets' && f !== 'index.html') {
+    copyFileSync(`dist/${f}`, `dist/dist/${f}`);
+  }
+}
+console.log('✅ Mirrored distribution assets to dist/dist/ for universal routing');

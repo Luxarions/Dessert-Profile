@@ -24,7 +24,11 @@ function minify(css) {
 }
 
 mkdirSync(dirname(OUT), { recursive: true });
+mkdirSync('dist/dist', { recursive: true });
 const css = readFileSync(SRC, 'utf8');
+const minCss = minify(css);
 writeFileSync(OUT, css);
-writeFileSync(OUT_MIN, minify(css));
-console.log('✅ CSS built →', OUT, '&', OUT_MIN);
+writeFileSync(OUT_MIN, minCss);
+writeFileSync('dist/dist/dessert.css', css);
+writeFileSync('dist/dist/dessert.min.css', minCss);
+console.log('✅ CSS built →', OUT, '&', OUT_MIN, '(mirrored to dist/dist/)');
