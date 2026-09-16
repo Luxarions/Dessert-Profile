@@ -1,49 +1,55 @@
 # 🛡️ DESSERT Vanity Proxy (Cloudflare Worker)
 
-Panduan setup URL Proxy gratis untuk menyamarkan URL Vercel tanpa perlu membeli domain sendiri.
+Setup guide for a free reverse proxy endpoint to mask the upstream origin host without needing a custom domain.
 
 ---
 
-## 🎯 Hasil yang Didapatkan:
+## 🎯 Key Benefits:
 
-* **Endpoint Aktif Saat Ini**: [https://dessert-studios.bay-nisdhilla7.workers.dev](https://dessert-studios.bay-nisdhilla7.workers.dev)
-* **Jejak Vercel 100% Hilang**: Header seperti `x-vercel-id`, `x-vercel-cache`, dan `server: Vercel` otomatis dihapus.
-* **Header Kustom**: Header server diganti menjadi `Server: DESSERT-Engine/2.0`.
-* **CORS Aktif**: Semua file dapat dipanggil dari website publik mana pun tanpa kendala CORS.
+* **Active Production Endpoint**: [https://dessert-studios.bay-nisdhilla7.workers.dev](https://dessert-studios.bay-nisdhilla7.workers.dev)
+* **100% Upstream Origin Masking**: Automatically removes headers such as `x-vercel-id`, `x-vercel-cache`, and `server: Vercel`.
+* **Custom Brand Headers**: Replaces server identity with `Server: DESSERT-Engine/2.0`.
+* **Universal CORS Enabled**: Assets and scripts can be requested by external websites without CORS friction.
+* **Edge Caching**: Assets (`.js`, `.css`, `.svg`, `.png`) are cached globally across Cloudflare edge nodes.
 
 ---
 
-## 🔗 URL Endpoint yang Aktif & Siap Digunakan:
+## 🔗 Live Public Endpoints:
 
-| Keperluan | URL Proxy Aktif |
+| Usage | Public Proxy URL |
 | :--- | :--- |
-| **Halaman Showcase/Demo** | `https://dessert-studios.bay-nisdhilla7.workers.dev/` |
-| **Panggil CSS** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.min.css` |
-| **Panggil JS Pustaka** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.umd.min.js` |
-| **Asset Loader Plugin** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/loader.umd.min.js` |
+| **Showcase & Interactive Demo** | `https://dessert-studios.bay-nisdhilla7.workers.dev/` |
+| **Framework CSS Bundle** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.min.css` |
+| **Core JS Bundle (UMD)** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.umd.min.js` |
+| **Asset Loader Plugin (UMD)** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/loader.umd.min.js` |
 
 ---
 
-## 🚀 Cara Pasang dalam 2 Menit (100% Gratis & Tanpa Kartu Kredit)
+## 🚀 Quick Setup Guide (Free Cloudflare Worker)
 
-1. Buka [https://dash.cloudflare.com/](https://dash.cloudflare.com/) (buat akun gratis jika belum punya).
-2. Di menu sebelah kiri, klik **Workers & Pages** ➔ **Create Application**.
-3. Klik tombol **Create Worker**.
-4. Beri nama Worker Anda, misalnya: `dessert-ui` atau `dessert-cdn`.
-5. Klik **Deploy**.
-6. Setelah ter-deploy, klik tombol **Edit Code** (Quick Edit).
-7. Hapus semua kode default di editor Cloudflare, lalu salin dan tempelkan isi dari file `proxy/worker.js`.
-8. Klik **Save and Deploy**.
+1. Open [https://dash.cloudflare.com/](https://dash.cloudflare.com/) (sign up for a free account if you haven't already).
+2. On the left navigation, navigate to **Workers & Pages** ➔ **Create Application**.
+3. Click the **Create Worker** button.
+4. Name your Worker (e.g. `dessert-studios` or `dessert-cdn`).
+5. Click **Deploy**.
+6. After creation, click **Edit Code** (Quick Editor).
+7. Replace the default placeholder code with the contents of `proxy/worker.js`.
+8. Click **Save and Deploy**.
 
-Selesai! Sekarang Anda memiliki URL publik seperti:
-`https://dessert-ui.<subdomain>.workers.dev`
+Done! Your clean vanity proxy URL is now live at:
+`https://<your-worker-name>.<your-subdomain>.workers.dev`
 
 ---
 
-## 🔗 Contoh Penggunaan Publik:
+## 💻 HTML Integration Example:
 
-| Keperluan | URL Proxy Publik |
-| :--- | :--- |
-| **Halaman Showcase/Demo** | `https://dessert-ui.<username>.workers.dev/` |
-| **Panggil CSS** | `https://dessert-ui.<username>.workers.dev/dist/dessert.min.css` |
-| **Panggil JS Pustaka** | `https://dessert-ui.<username>.workers.dev/dist/dessert.umd.min.js` |
+```html
+<!-- DESSERT Framework Stylesheet via Edge Proxy -->
+<link rel="stylesheet" href="https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.min.css" />
+
+<!-- DESSERT Core Library via Edge Proxy -->
+<script src="https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.umd.min.js"></script>
+
+<!-- Optional Asset Loader Plugin -->
+<script src="https://dessert-studios.bay-nisdhilla7.workers.dev/dist/loader.umd.min.js"></script>
+```

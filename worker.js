@@ -27,21 +27,21 @@ export default {
 
     const resHeaders = new Headers(response.headers);
 
-    // Hapus semua jejak Vercel
+    // Strip all upstream Vercel fingerprint headers
     resHeaders.delete('x-vercel-id');
     resHeaders.delete('x-vercel-cache');
     resHeaders.delete('x-vercel-execution-region');
     resHeaders.delete('x-matched-path');
     resHeaders.delete('server');
 
-    // Identitas kustom DESSERT & CORS
+    // Inject custom DESSERT server headers & permissive CORS
     resHeaders.set('Server', 'DESSERT-Engine/2.0 (High-Performance Edge)');
     resHeaders.set('X-Powered-By', 'DESSERT Framework');
     resHeaders.set('Access-Control-Allow-Origin', '*');
     resHeaders.set('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
     resHeaders.set('Access-Control-Allow-Headers', '*');
 
-    // Caching asset statis
+    // Edge cache static assets (JS, CSS, images, fonts)
     if (url.pathname.match(/\.(js|css|svg|png|jpg|json|woff2)$/i)) {
       resHeaders.set('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400');
     }

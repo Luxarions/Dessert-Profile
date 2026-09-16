@@ -294,13 +294,14 @@ npm run serve
 
 ## 🛡️ Vanity Proxy CDN (Origin Masking)
 
-Untuk menyamarkan URL asli dan menghilangkan jejak hosting publik:
+To mask upstream origin hosts and provide clean branded CDN and demo endpoints:
 
-Script proxy tersedia di `proxy/worker.js`. Dapat di-deploy gratis di **Cloudflare Workers** (mendapatkan URL publik `https://dessert-ui.<user>.workers.dev` tanpa perlu domain sendiri).
+A standalone reverse proxy script is available in `proxy/worker.js`, deployable for free on **Cloudflare Workers** (with a public URL such as `https://dessert-studios.bay-nisdhilla7.workers.dev` without requiring a custom domain).
 
-- Otomatis menghapus header `x-vercel-id`, `x-vercel-cache`, dan `server: Vercel`.
-- Mengganti identitas menjadi `Server: DESSERT-Engine/2.0`.
-- Panduan lengkap: lihat [proxy/README.md](proxy/README.md).
+- Strips upstream headers (`x-vercel-id`, `x-vercel-cache`, and `server: Vercel`).
+- Injects custom brand server headers: `Server: DESSERT-Engine/2.0`.
+- Provides universal CORS access and edge asset caching.
+- Detailed setup instructions: see [proxy/README.md](proxy/README.md).
 
 ---
 
