@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DESSERT — UMD Mode (dist)</title>
+  <link rel="stylesheet" href="../dist/dessert.css" data-dessert-css />
+  <link rel="stylesheet" href="demo.css" />
+</head>
+<body class="dessert-reset">
+  <h1>🍰 DESSERT — UMD Mode (dist)</h1>
+  <p>Built assets loaded from <code>dist/</code>.</p>
+
+  <h2>1. Buttons</h2>
+  <div class="box">
+    <button class="dessert-btn">Primary</button>
+    <button class="dessert-btn dessert-btn-success">Success</button>
+    <button class="dessert-btn dessert-btn-danger">Danger</button>
+    <button class="dessert-btn dessert-btn-outline">Outline</button>
+    <button class="dessert-btn" onclick="DESSERT.alert('Hello!', 'success')">Alert</button>
+  </div>
+
+  <h2>2. Modal</h2>
+  <div class="box">
+    <button class="dessert-btn" data-dessert-open="demoModal">Open Modal</button>
+    <div class="dessert-modal" id="demoModal" data-dessert="modal" role="dialog" aria-modal="true">
+      <div class="dessert-modal-content">
+        <h3>DESSERT Modal</h3>
+        <p style="margin: 12px 0;">Press <kbd>ESC</kbd> or click the overlay.</p>
+        <button class="dessert-btn" data-dessert-close>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <h2>3. Dropdown</h2>
+  <div class="box">
+    <div class="dessert-dropdown" data-dessert="dropdown">
+      <button class="dessert-btn" data-dessert-trigger>Menu ▾</button>
+      <div class="dessert-dropdown-menu" data-dessert-menu>
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>
+        <a href="#">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <h2>4. Tabs</h2>
+  <div class="box">
+    <div class="dessert-tabs" data-dessert="tabs">
+      <div class="dessert-tabs-nav">
+        <button class="dessert-tab dessert-active" data-dessert-tab="a">Tab A</button>
+        <button class="dessert-tab" data-dessert-tab="b">Tab B</button>
+        <button class="dessert-tab" data-dessert-tab="c">Tab C</button>
+      </div>
+      <div class="dessert-panel dessert-active" data-dessert-panel="a">Content A</div>
+      <div class="dessert-panel" data-dessert-panel="b">Content B</div>
+      <div class="dessert-panel" data-dessert-panel="c">Content C</div>
+    </div>
+  </div>
+
+  <h2>5. Accordion</h2>
+  <div class="box">
+    <div class="dessert-accordion" data-dessert="accordion">
+      <div class="dessert-accordion-item">
+        <div class="dessert-accordion-header">What is DESSERT?</div>
+        <div class="dessert-accordion-body">A lightweight framework with the <code>dessert-</code> prefix.</div>
+      </div>
+      <div class="dessert-accordion-item">
+        <div class="dessert-accordion-header">How to use?</div>
+        <div class="dessert-accordion-body">Add <code>data-dessert="component"</code> to elements.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../dist/dessert.umd.js"></script>
+  <script src="../dist/loader.umd.js"></script>
+  <script>
+    DESSERT.use(DESSERTLoader.loaderPlugin);
+  </script>
+</body>
+</html>

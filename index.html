@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DESSERT UI Framework</title>
+    <meta name="description" content="Lightweight UI Logic Library and Asset Loader with prefix DESSERT, components, auto-init, and interactive showcase." />
+    <meta property="og:title" content="DESSERT UI Framework" />
+    <meta property="og:description" content="Lightweight UI Logic Library and Asset Loader with prefix DESSERT, components, auto-init, and interactive showcase." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/src/styles/dessert.css" />
+    <link rel="stylesheet" href="/example/demo.css" />
+    <style>
+      :root {
+        --accent: #ff6b9d;
+        --accent-hover: #e85587;
+        --bg-main: #f8fafc;
+        --text-dark: #0f172a;
+      }
+      body {
+        background-color: var(--bg-main);
+        color: var(--text-dark);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        padding: 24px 16px 64px;
+        margin: 0 auto;
+        max-width: 960px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .brand-logo {
+        width: 44px;
+        height: 44px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        box-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
+      }
+      .brand-title {
+        font-size: 22px;
+        font-weight: 800;
+        margin: 0;
+        color: var(--text-dark);
+      }
+      .badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: #fce7f3;
+        color: #be185d;
+      }
+      .badge-neutral {
+        background: #e2e8f0;
+        color: #475569;
+      }
+      .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 28px 0 12px;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .tag {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 400;
+      }
+      .card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        margin-bottom: 16px;
+      }
+      .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+      .log-terminal {
+        background: #0f172a;
+        color: #38bdf8;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
+        padding: 14px;
+        border-radius: 8px;
+        max-height: 220px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+      }
+      .progress-container {
+        height: 8px;
+        background: #e2e8f0;
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 10px;
+      }
+      .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: var(--accent);
+        transition: width 0.25s ease;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .test-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 12px;
+        margin-bottom: 6px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      }
+      .test-pass {
+        color: #16a34a;
+        font-weight: 700;
+      }
+      .test-fail {
+        color: #dc2626;
+        font-weight: 700;
+      }
+      kbd {
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        border-radius: 4px;
+        padding: 2px 6px;
+        font-size: 11px;
+      }
+    </style>
+  </head>
+  <body class="dessert-reset">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">🍰</div>
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <h1 class="brand-title">DESSERT</h1>
+            <span class="badge">v2.0.0</span>
+            <span class="badge badge-neutral">Pure JS Library</span>
+          </div>
+          <div style="font-size: 13px; color: #64748b;">
+            Prefix-consistent UI Logic Library & Asset Loader (<code style="color: #be185d;">dessert-*</code>)
+          </div>
+        </div>
+      </div>
+      <div>
+        <button id="quickAlertBtn" class="dessert-btn dessert-btn-success" style="font-size: 13px; padding: 6px 14px;">
+          Trigger Alert
+        </button>
+      </div>
+    </header>
+
+    <!-- 1. Buttons & Alerts -->
+    <div class="section-title">
+      <span>1. Buttons & Stacked Alerts</span>
+      <span class="tag">.dessert-btn & DESSERT.alert()</span>
+    </div>
+    <div class="card">
+      <div class="btn-group">
+        <button class="dessert-btn">Primary</button>
+        <button class="dessert-btn dessert-btn-success">Success</button>
+        <button class="dessert-btn dessert-btn-danger">Danger</button>
+        <button class="dessert-btn dessert-btn-warning">Warning</button>
+        <button class="dessert-btn dessert-btn-info">Info</button>
+        <button class="dessert-btn dessert-btn-outline">Outline</button>
+      </div>
+      <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid #f1f5f9;">
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">Test Alert Toasts:</div>
+        <div class="btn-group">
+          <button class="dessert-btn dessert-btn-success" style="font-size: 12px; padding: 4px 10px;" onclick="DESSERT.alert('Saved successfully!', 'success')">Success Toast</button>
+          <button class="dessert-btn dessert-btn-danger" style="font-size: 12px; padding: 4px 10px;" onclick="DESSERT.alert('Connection failed', 'danger')">Danger Toast</button>
+          <button class="dessert-btn dessert-btn-warning" style="font-size: 12px; padding: 4px 10px;" onclick="DESSERT.alert('Warning: low cache', 'warning')">Warning Toast</button>
+          <button class="dessert-btn dessert-btn-info" style="font-size: 12px; padding: 4px 10px;" onclick="DESSERT.alert('Background sync complete', 'info')">Info Toast</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Modal & Dropdown -->
+    <div class="grid-2">
+      <div>
+        <div class="section-title">
+          <span>2. Modal Dialog</span>
+          <span class="tag">data-dessert="modal"</span>
+        </div>
+        <div class="card">
+          <p style="font-size: 13px; color: #64748b; margin-top: 0;">
+            Supports trigger attribute, backdrop click dismissal, and <kbd>ESC</kbd> key.
+          </p>
+          <div class="btn-group">
+            <button class="dessert-btn" data-dessert-open="demoModal">Open Modal (Attribute)</button>
+            <button class="dessert-btn dessert-btn-outline" onclick="DESSERT.modal.open(document.getElementById('demoModal'))">Open via API</button>
+          </div>
+
+          <!-- Modal DOM -->
+          <div class="dessert-modal" id="demoModal" data-dessert="modal" role="dialog" aria-modal="true">
+            <div class="dessert-modal-content">
+              <h3 style="margin-top: 0; color: #0f172a;">🍰 DESSERT Modal</h3>
+              <p style="margin: 12px 0; font-size: 14px; color: #475569;">
+                This modal is controlled entirely by DESSERT's auto-init engine. Press <kbd>ESC</kbd> or click the backdrop to dismiss.
+              </p>
+              <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
+                <button class="dessert-btn dessert-btn-outline" data-dessert-close>Close</button>
+                <button class="dessert-btn dessert-btn-success" onclick="DESSERT.modal.close(document.getElementById('demoModal')); DESSERT.alert('Action confirmed!', 'success');">Confirm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">
+          <span>3. Dropdown Menu</span>
+          <span class="tag">data-dessert="dropdown"</span>
+        </div>
+        <div class="card">
+          <p style="font-size: 13px; color: #64748b; margin-top: 0;">
+            Trigger button toggles menu and dismisses on outside click.
+          </p>
+          <div class="dessert-dropdown" data-dessert="dropdown">
+            <button class="dessert-btn" data-dessert-trigger>Actions Menu ▾</button>
+            <div class="dessert-dropdown-menu" data-dessert-menu>
+              <a href="#" onclick="event.preventDefault(); DESSERT.alert('Profile clicked', 'info');">Profile Details</a>
+              <a href="#" onclick="event.preventDefault(); DESSERT.alert('Settings opened', 'info');">System Preferences</a>
+              <a href="#" onclick="event.preventDefault(); DESSERT.alert('Cache cleared', 'warning');">Clear Cache</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Tabs & Accordion -->
+    <div class="grid-2">
+      <div>
+        <div class="section-title">
+          <span>4. Tabs</span>
+          <span class="tag">data-dessert="tabs"</span>
+        </div>
+        <div class="card">
+          <div class="dessert-tabs" data-dessert="tabs">
+            <div class="dessert-tabs-nav">
+              <button class="dessert-tab dessert-active" data-dessert-tab="tab1">Overview</button>
+              <button class="dessert-tab" data-dessert-tab="tab2">Builds</button>
+              <button class="dessert-tab" data-dessert-tab="tab3">Features</button>
+            </div>
+            <div class="dessert-panel dessert-active" data-dessert-panel="tab1">
+              <p style="font-size: 13px; margin: 0;"><strong>Zero dependencies</strong> — pure modern ES6+ with strict prefixing.</p>
+            </div>
+            <div class="dessert-panel" data-dessert-panel="tab2">
+              <p style="font-size: 13px; margin: 0;">Exports CJS, ESM, and UMD in both normal and minified formats in <code>dist/</code>.</p>
+            </div>
+            <div class="dessert-panel" data-dessert-panel="tab3">
+              <p style="font-size: 13px; margin: 0;">Modal, Dropdown, Tabs, Accordion, Alerts, and pluggable Asset Loader.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">
+          <span>5. Accordion</span>
+          <span class="tag">data-dessert="accordion"</span>
+        </div>
+        <div class="card">
+          <div class="dessert-accordion" data-dessert="accordion">
+            <div class="dessert-accordion-item dessert-open">
+              <div class="dessert-accordion-header">What is DESSERT?</div>
+              <div class="dessert-accordion-body" style="max-height: 80px;">
+                <p style="font-size: 13px; margin: 0; padding: 4px 0;">Lightweight UI framework with prefix consistency.</p>
+              </div>
+            </div>
+            <div class="dessert-accordion-item">
+              <div class="dessert-accordion-header">How to initialize?</div>
+              <div class="dessert-accordion-body">
+                <p style="font-size: 13px; margin: 0; padding: 4px 0;">Call <code>DESSERT.init()</code> or mark elements with <code>data-dessert</code>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Asset Loader Studio -->
+    <div class="section-title">
+      <span>6. Asset Loader Plugin</span>
+      <span class="tag">DESSERT.load</span>
+    </div>
+    <div class="card">
+      <div class="btn-group">
+        <button class="dessert-btn" id="btnLoadCSS">Load CSS</button>
+        <button class="dessert-btn dessert-btn-info" id="btnLoadJSON">Load config.json</button>
+        <button class="dessert-btn dessert-btn-success" id="btnLoadImg">Load logo.svg</button>
+        <button class="dessert-btn dessert-btn-warning" id="btnParallel">Load 3 Assets (Parallel)</button>
+        <button class="dessert-btn dessert-btn-outline" id="btnClearCache">Clear Cache</button>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <div style="margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div>
+          <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px; color: #475569;">Event Console:</div>
+          <div class="log-terminal" id="loaderLog">System ready. Click any loader button above.</div>
+        </div>
+        <div>
+          <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px; color: #475569;">Image / Data Preview:</div>
+          <div id="previewContainer" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 220px; display: flex; align-items: center; justify-content: center; overflow: auto; padding: 12px; box-sizing: border-box;">
+            <span style="font-size: 12px; color: #94a3b8; font-style: italic;">No asset loaded yet</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. In-Browser Test Suite -->
+    <div class="section-title">
+      <span>7. Built-in Test Suite</span>
+      <span class="tag" id="testStats">Running tests...</span>
+    </div>
+    <div class="card">
+      <div id="testResultsList"></div>
+      <div style="margin-top: 12px;">
+        <button class="dessert-btn dessert-btn-outline" style="font-size: 12px;" id="reRunTestsBtn">Re-run Test Suite</button>
+      </div>
+    </div>
+
+    <!-- PURE ES MODULE SCRIPT - NO REACT, NO APP.TSX -->
+    <script type="module">
+      import DESSERT from '/src/index.js';
+      import { loaderPlugin } from '/src/plugins/loader/LoaderPlugin.js';
+
+      // Register the loader plugin
+      DESSERT.use(loaderPlugin);
+      window.DESSERT = DESSERT;
+
+      // Logger helper
+      const logEl = document.getElementById('loaderLog');
+      const addLog = (msg) => {
+        const time = new Date().toLocaleTimeString();
+        logEl.textContent = `[${time}] ${msg}\n` + logEl.textContent;
+      };
+
+      // Quick Alert button
+      document.getElementById('quickAlertBtn').onclick = () => {
+        DESSERT.alert('DESSERT v2.0.0 is active & running cleanly!', 'success');
+      };
+
+      // Load CSS demo
+      document.getElementById('btnLoadCSS').onclick = async () => {
+        addLog('Loading CSS: /src/styles/dessert.css');
+        try {
+          await DESSERT.load.css('/src/styles/dessert.css');
+          addLog('CSS loaded and cached.');
+          DESSERT.alert('CSS asset ready', 'success');
+        } catch (e) {
+          addLog('CSS Error: ' + e.message);
+          DESSERT.alert(e.message, 'danger');
+        }
+      };
+
+      // Load JSON demo
+      document.getElementById('btnLoadJSON').onclick = async () => {
+        addLog('Fetching JSON: /assets/data/config.json');
+        try {
+          const data = await DESSERT.load.json('/assets/data/config.json');
+          addLog('JSON data: ' + JSON.stringify(data));
+          const preview = document.getElementById('previewContainer');
+          preview.innerHTML = `<pre style="font-size: 11px; font-family: monospace; margin: 0; color: #0f172a; width: 100%;">${JSON.stringify(data, null, 2)}</pre>`;
+          DESSERT.alert('Loaded ' + data.app + ' config', 'info');
+        } catch (e) {
+          addLog('JSON Error: ' + e.message);
+          DESSERT.alert(e.message, 'danger');
+        }
+      };
+
+      // Load Image demo
+      document.getElementById('btnLoadImg').onclick = async () => {
+        addLog('Loading Image: /assets/img/logo.svg');
+        try {
+          const img = await DESSERT.load.img('/assets/img/logo.svg');
+          addLog('Image loaded successfully.');
+          const preview = document.getElementById('previewContainer');
+          preview.innerHTML = '';
+          img.style.width = '80px';
+          img.style.height = '80px';
+          preview.appendChild(img);
+          DESSERT.alert('Logo loaded!', 'success');
+        } catch (e) {
+          addLog('IMG Error: ' + e.message);
+          DESSERT.alert(e.message, 'danger');
+        }
+      };
+
+      // Parallel loader demo
+      document.getElementById('btnParallel').onclick = async () => {
+        const bar = document.getElementById('progressBar');
+        bar.style.width = '0%';
+        addLog('Starting parallel batch load (3 assets)...');
+        try {
+          await DESSERT.load.parallel([
+            { type: 'css', url: '/src/styles/dessert.css' },
+            { type: 'json', url: '/assets/data/config.json' },
+            { type: 'img', url: '/assets/img/logo.svg' }
+          ], (done, total) => {
+            const pct = Math.round((done / total) * 100);
+            bar.style.width = pct + '%';
+            addLog(`Batch progress: ${done}/${total} (${pct}%)`);
+          });
+          addLog('Parallel batch load completed.');
+          DESSERT.alert('All 3 assets loaded in parallel!', 'success');
+        } catch (e) {
+          addLog('Parallel Error: ' + e.message);
+          DESSERT.alert(e.message, 'danger');
+        }
+      };
+
+      // Clear cache demo
+      document.getElementById('btnClearCache').onclick = () => {
+        DESSERT.load.clearCache();
+        addLog('Loader promise cache cleared.');
+        DESSERT.alert('Loader cache cleared', 'warning');
+      };
+
+      // Run In-Browser Test Suite
+      const runTests = () => {
+        const tests = [];
+        tests.push({ name: 'Core: DESSERT is object', pass: typeof DESSERT === 'object' });
+        tests.push({ name: 'Core: prefix is "dessert"', pass: DESSERT.prefix === 'dessert' });
+        tests.push({ name: 'Core: version is "2.0.0"', pass: DESSERT.version === '2.0.0' });
+        tests.push({ name: 'Core: init() is function', pass: typeof DESSERT.init === 'function' });
+        tests.push({ name: 'Core: alert() is function', pass: typeof DESSERT.alert === 'function' });
+        tests.push({ name: 'Core: modal API exists', pass: typeof DESSERT.modal === 'object' && typeof DESSERT.modal.open === 'function' });
+        tests.push({ name: 'DOM: addClass / removeClass work', pass: (() => {
+          const el = document.createElement('div');
+          DESSERT.addClass(el, 'test');
+          const added = el.classList.contains('dessert-test');
+          DESSERT.removeClass(el, 'test');
+          const removed = !el.classList.contains('dessert-test');
+          return added && removed;
+        })() });
+        tests.push({ name: 'DOM: toggleClass works', pass: (() => {
+          const el = document.createElement('div');
+          DESSERT.toggleClass(el, 'toggle');
+          const on = el.classList.contains('dessert-toggle');
+          DESSERT.toggleClass(el, 'toggle');
+          const off = !el.classList.contains('dessert-toggle');
+          return on && off;
+        })() });
+        tests.push({ name: 'Loader: load() is function', pass: typeof DESSERT.load === 'function' });
+        tests.push({ name: 'Loader: load.css, load.js, load.img, load.json exist', pass:
+          typeof DESSERT.load.css === 'function' &&
+          typeof DESSERT.load.js === 'function' &&
+          typeof DESSERT.load.img === 'function' &&
+          typeof DESSERT.load.json === 'function'
+        });
+        tests.push({ name: 'Loader: load.parallel & sequence exist', pass:
+          typeof DESSERT.load.parallel === 'function' &&
+          typeof DESSERT.load.sequence === 'function'
+        });
+        tests.push({ name: 'Loader: cache is Map instance', pass: DESSERT.load.cache instanceof Map });
+
+        const container = document.getElementById('testResultsList');
+        container.innerHTML = '';
+        let passCount = 0;
+        tests.forEach((t) => {
+          if (t.pass) passCount++;
+          const row = document.createElement('div');
+          row.className = 'test-item';
+          row.innerHTML = `<span>${t.name}</span><span class="${t.pass ? 'test-pass' : 'test-fail'}">${t.pass ? 'PASS' : 'FAIL'}</span>`;
+          container.appendChild(row);
+        });
+
+        document.getElementById('testStats').textContent = `${passCount} / ${tests.length} tests passed`;
+      };
+
+      document.getElementById('reRunTestsBtn').onclick = runTests;
+      runTests();
+    </script>
+  </body>
+</html>

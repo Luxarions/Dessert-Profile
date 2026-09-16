@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DESSERT — ESM Mode (src)</title>
+  <link rel="stylesheet" href="../src/styles/dessert.css" data-dessert-css />
+  <link rel="stylesheet" href="demo.css" />
+</head>
+<body class="dessert-reset">
+  <h1>🍰 DESSERT — ESM Mode (src)</h1>
+  <p>Direct import from <code>src/</code> — requires HTTP server.</p>
+  <button class="dessert-btn" id="alertBtn">Test Alert</button>
+  <button class="dessert-btn" id="loadBtn">Load JSON</button>
+  <pre id="log"></pre>
+
+  <script type="module">
+    import DESSERT from '../src/index.js';
+    import { loaderPlugin } from '../src/plugins/loader/LoaderPlugin.js';
+
+    DESSERT.use(loaderPlugin);
+
+    document.getElementById('alertBtn').onclick = () => {
+      DESSERT.alert('ESM works! 🎉', 'success');
+    };
+
+    document.getElementById('loadBtn').onclick = async () => {
+      try {
+        const data = await DESSERT.load.json('../assets/data/config.json');
+        document.getElementById('log').textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        DESSERT.alert(e.message, 'danger');
+      }
+    };
+  </script>
+</body>
+</html>

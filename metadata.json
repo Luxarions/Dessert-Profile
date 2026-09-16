@@ -1,0 +1,7 @@
+{
+  "name": "DESSERT UI Framework",
+  "description": "Lightweight UI Logic Library and Asset Loader with prefix DESSERT, components, auto-init, and interactive showcase.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

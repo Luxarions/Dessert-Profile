@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DESSERT — Asset Loader Demo</title>
+  <link rel="stylesheet" href="../src/styles/dessert.css" data-dessert-css />
+  <link rel="stylesheet" href="demo.css" />
+  <style>
+    #log { background: #2d3436; color: #00ff9d; font-family: monospace; font-size: 12px; padding: 12px; border-radius: 8px; max-height: 200px; overflow-y: auto; }
+    #progress { height: 6px; background: #eee; border-radius: 3px; overflow: hidden; margin-top: 8px; }
+    #progress > div { height: 100%; width: 0; background: #ff6b9d; transition: width 0.2s; }
+  </style>
+</head>
+<body class="dessert-reset">
+  <h1>🍰 DESSERT — Asset Loader</h1>
+
+  <h2>1. Load CSS</h2>
+  <div class="box"><button class="dessert-btn" onclick="demoLoadCSS()">Load CSS</button></div>
+
+  <h2>2. Load JSON</h2>
+  <div class="box"><button class="dessert-btn" onclick="demoLoadJSON()">Load config.json</button></div>
+
+  <h2>3. Load Image</h2>
+  <div class="box">
+    <button class="dessert-btn" onclick="demoLoadImg()">Load logo.svg</button>
+    <div id="imgTarget"></div>
+  </div>
+
+  <h2>4. Parallel + Progress</h2>
+  <div class="box">
+    <button class="dessert-btn" onclick="demoParallel()">Load 3 assets in parallel</button>
+    <div id="progress"><div></div></div>
+  </div>
+
+  <h2>Log</h2>
+  <div id="log"></div>
+
+  <script type="module">
+    import DESSERT from '../src/index.js';
+    import { loaderPlugin } from '../src/plugins/loader/LoaderPlugin.js';
+
+    DESSERT.use(loaderPlugin);
+
+    const log = (msg) => {
+      const el = document.getElementById('log');
+      el.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}\n`;
+      el.scrollTop = el.scrollHeight;
+    };
+
+    window.demoLoadCSS = () => {
+      DESSERT.load.css('../src/styles/dessert.css')
+        .then(() => log('✅ CSS loaded'))
+        .catch((e) => log('❌ ' + e.message));
+    };
+
+    window.demoLoadJSON = () => {
+      DESSERT.load.json('../assets/data/config.json')
+        .then((data) => log('✅ JSON: ' + JSON.stringify(data)))
+        .catch((e) => log('❌ ' + e.message));
+    };
+
+    window.demoLoadImg = () => {
+      DESSERT.load.img('../assets/img/logo.svg')
+        .then((img) => {
+          log('✅ IMG loaded');
+          const t = document.getElementById('imgTarget');
+          t.innerHTML = '';
+          t.appendChild(img);
+        })
+        .catch((e) => log('❌ ' + e.message));
+    };
+
+    window.demoParallel = () => {
+      const bar = document.querySelector('#progress > div');
+      bar.style.width = '0%';
+
+      DESSERT.load.parallel([
+        { type: 'css', url: '../src/styles/dessert.css' },
+        { type: 'json', url: '../assets/data/config.json' },
+        { type: 'img', url: '../assets/img/logo.svg' },
+      ], (done, total) => {
+        bar.style.width = Math.round((done / total) * 100) + '%';
+        log(`Progress: ${done}/${total}`);
+      })
+        .then(() => log('✅ Parallel done'))
+        .catch((e) => log('❌ ' + e.message));
+    };
+  </script>
+</body>
+</html>

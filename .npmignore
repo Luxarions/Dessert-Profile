@@ -1,0 +1,9 @@
+src/
+test/
+example/
+scripts/
+assets/
+types/
+rollup.config.js
+babel.config.json
+.npmignore

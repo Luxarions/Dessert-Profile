@@ -1,0 +1,6 @@
+{
+  "app": "DESSERT",
+  "version": "2.0.0",
+  "theme": { "primary": "#ff6b9d", "radius": 10 },
+  "features": ["modal", "dropdown", "tabs", "accordion", "loader"]
+}
