@@ -21,7 +21,8 @@
 
 ## 🌐 Live Demo & Showcase
 
-- **Live Preview (Vercel)**: [https://dessert-profile.vercel.app](https://dessert-profile.vercel.app)
+- **Edge Proxy (Official Showcase)**: [https://dessert-studios.bay-nisdhilla7.workers.dev](https://dessert-studios.bay-nisdhilla7.workers.dev)
+- **Direct Edge (Vercel)**: [https://dessert-profile.vercel.app](https://dessert-profile.vercel.app)
 
 ---
 

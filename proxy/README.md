@@ -6,10 +6,21 @@ Panduan setup URL Proxy gratis untuk menyamarkan URL Vercel tanpa perlu membeli 
 
 ## 🎯 Hasil yang Didapatkan:
 
-* **URL Publik Baru**: `https://dessert-ui.<username-anda>.workers.dev` atau `https://dessert-cdn.<username-anda>.workers.dev`
+* **Endpoint Aktif Saat Ini**: [https://dessert-studios.bay-nisdhilla7.workers.dev](https://dessert-studios.bay-nisdhilla7.workers.dev)
 * **Jejak Vercel 100% Hilang**: Header seperti `x-vercel-id`, `x-vercel-cache`, dan `server: Vercel` otomatis dihapus.
 * **Header Kustom**: Header server diganti menjadi `Server: DESSERT-Engine/2.0`.
 * **CORS Aktif**: Semua file dapat dipanggil dari website publik mana pun tanpa kendala CORS.
+
+---
+
+## 🔗 URL Endpoint yang Aktif & Siap Digunakan:
+
+| Keperluan | URL Proxy Aktif |
+| :--- | :--- |
+| **Halaman Showcase/Demo** | `https://dessert-studios.bay-nisdhilla7.workers.dev/` |
+| **Panggil CSS** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.min.css` |
+| **Panggil JS Pustaka** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.umd.min.js` |
+| **Asset Loader Plugin** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/loader.umd.min.js` |
 
 ---
 
