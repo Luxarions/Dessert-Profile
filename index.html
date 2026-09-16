@@ -9,6 +9,9 @@
     <meta property="og:description" content="Lightweight UI Logic Library and Asset Loader with prefix DESSERT, components, auto-init, and interactive showcase." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Memanggil CSS utama pustaka DESSERT -->
     <link rel="stylesheet" href="/src/styles/dessert.css" />
     <!-- Memanggil CSS demo showcase eksternal -->
@@ -19,18 +22,18 @@
       <div class="demo-brand">
         <div class="demo-brand-logo">🍰</div>
         <div>
-          <div style="display: flex; align-items: center; gap: 8px;">
+          <div class="demo-badges-row">
             <h1 class="demo-brand-title">DESSERT</h1>
             <span class="dessert-badge">v2.0.0</span>
             <span class="dessert-badge dessert-badge-neutral">Pure JS Library</span>
           </div>
-          <div style="font-size: 13px; color: #64748b;">
+          <div style="font-size: 13px; color: #64748b; margin-top: 4px;">
             Prefix-consistent UI Logic Library & Asset Loader (<code class="dessert-code" style="color: #be185d;">dessert-*</code>)
           </div>
         </div>
       </div>
       <div>
-        <button id="quickAlertBtn" class="dessert-btn dessert-btn-success" style="font-size: 13px; padding: 6px 14px;">
+        <button id="quickAlertBtn" class="dessert-btn dessert-btn-success" style="font-size: 13px;">
           Trigger Alert
         </button>
       </div>

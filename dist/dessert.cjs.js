@@ -427,12 +427,60 @@ function accordionComponent(el) {
   log("accordion init");
 }
 
+// src/components/card.js
+function cardComponent(el) {
+  const toggleBtn = el.querySelector("[data-dessert-card-toggle]");
+  const body = el.querySelector(".dessert-card-body");
+  if (toggleBtn && body) {
+    toggleBtn.addEventListener("click", () => {
+      const isCollapsed = el.classList.contains("dessert-card-collapsed");
+      if (isCollapsed) {
+        removeClass(el, "card-collapsed");
+        body.style.display = "block";
+        helpers.controller?.emit("card:expand", { el });
+      } else {
+        addClass(el, "card-collapsed");
+        body.style.display = "none";
+        helpers.controller?.emit("card:collapse", { el });
+      }
+    });
+  }
+  const closeBtn = el.querySelector("[data-dessert-card-close]");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      el.style.opacity = "0";
+      el.style.transform = "scale(0.95)";
+      setTimeout(() => {
+        el.remove();
+        helpers.controller?.emit("card:dismiss", { el });
+      }, 200);
+    });
+  }
+}
+
+// src/components/badge.js
+function badgeComponent(el) {
+  const dismissBtn = el.querySelector("[data-dessert-badge-dismiss]");
+  if (dismissBtn) {
+    dismissBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      el.style.opacity = "0";
+      setTimeout(() => {
+        el.remove();
+        helpers.controller?.emit("badge:dismiss", { el });
+      }, 150);
+    });
+  }
+}
+
 // src/components/components.js
 var components = {
   modal: modalComponent,
   dropdown: dropdownComponent,
   tabs: tabsComponent,
-  accordion: accordionComponent
+  accordion: accordionComponent,
+  card: cardComponent,
+  badge: badgeComponent
 };
 
 // src/autoinit/autoInit.js
