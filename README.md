@@ -225,6 +225,30 @@ DESSERT.init({
 | `DESSERT.setData(el, key, value)` | Set data-dessert-* |
 | `DESSERT.getData(el, key)` | Get data-dessert-* |
 
+### Controller (`DESSERT.controller`)
+
+Centralized event bus (Pub/Sub), lifecycle manager, and global state hub:
+
+| Method | Description |
+| --- | --- |
+| `DESSERT.controller.on(event, handler)` | Subscribe to events (returns unsubscribe function) |
+| `DESSERT.controller.off(event, handler)` | Unsubscribe from events |
+| `DESSERT.controller.emit(event, payload)` | Emit custom or lifecycle event |
+| `DESSERT.controller.setState(key, val)` | Set global state (triggers `state:change`) |
+| `DESSERT.controller.getState(key, fallback)` | Get state value |
+| `DESSERT.controller.closeAll()` | Close all open modals & dropdown menus globally |
+| `DESSERT.controller.refresh()` | Re-scan and bind dynamic DOM elements |
+
+```javascript
+// Example: Listen to modal events
+DESSERT.controller.on('modal:open', ({ id }) => {
+  console.log(`Modal opened: ${id}`);
+});
+
+// Example: Global dismiss
+DESSERT.controller.closeAll();
+```
+
 ---
 
 ## 🏗 Build

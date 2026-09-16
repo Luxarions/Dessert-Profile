@@ -11,7 +11,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <!-- Memanggil CSS utama pustaka DESSERT -->
     <!-- Memanggil CSS demo showcase eksternal -->
-    <script type="module" crossorigin src="/assets/index-CW_DP2ub.js"></script>
+    <script type="module" crossorigin src="/assets/index-BigfYprM.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-CB8DruYD.css">
   </head>
   <body class="dessert-reset demo-body">
@@ -197,9 +197,28 @@
       </div>
     </div>
 
-    <!-- 7. In-Browser Test Suite -->
+    <!-- 7. Centralized Controller Hub -->
     <div class="demo-section-title">
-      <span>7. Built-in Test Suite</span>
+      <span>7. Centralized Controller Hub</span>
+      <span class="demo-tag">DESSERT.controller</span>
+    </div>
+    <div class="dessert-card">
+      <p style="font-size: 13px; color: #64748b; margin-top: 0;">
+        Orchestrates Pub/Sub events, global lifecycle, component states, and emergency global dismissals.
+      </p>
+      <div class="demo-btn-group">
+        <button class="dessert-btn dessert-btn-info" id="btnEmitEvent">Emit Custom Event</button>
+        <button class="dessert-btn dessert-btn-warning" id="btnToggleTheme">Toggle State (Theme)</button>
+        <button class="dessert-btn dessert-btn-danger" id="btnCloseAll">controller.closeAll()</button>
+      </div>
+      <div style="margin-top: 12px; padding: 10px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
+        Controller State: <strong id="controllerStateDisplay" style="color: #6c5ce7;">theme = light</strong>
+      </div>
+    </div>
+
+    <!-- 8. In-Browser Test Suite -->
+    <div class="demo-section-title">
+      <span>8. Built-in Test Suite</span>
       <span class="demo-tag" id="testStats">Running tests...</span>
     </div>
     <div class="dessert-card">

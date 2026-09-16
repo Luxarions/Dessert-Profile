@@ -4,6 +4,7 @@
 
 import { addClass, removeClass } from '../utils/classNames.js';
 import { state } from '../core/state.js';
+import { helpers } from '../utils/bridge.js';
 import { log } from '../utils/logger.js';
 
 /**
@@ -36,6 +37,7 @@ const modalAPI = {
       /** @type {HTMLElement|null} */(f)?.focus();
     }, 100);
 
+    helpers.controller?.emit('modal:open', { el, id: el.id });
     log('modal open:', el.id);
   },
 
@@ -53,6 +55,7 @@ const modalAPI = {
       state.lastFocused?.focus();
     }, 300);
 
+    helpers.controller?.emit('modal:close', { el, id: el.id });
     log('modal close:', el.id);
   },
 };

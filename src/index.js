@@ -3,6 +3,7 @@
  */
 
 import { DESSERT } from './core/DESSERT.js';
+import { DessertController } from './core/controller.js';
 import { components } from './components/components.js';
 import { autoInit } from './autoinit/autoInit.js';
 import { bindEscapeKey } from './autoinit/escapeKey.js';
@@ -49,5 +50,5 @@ if (typeof document !== 'undefined') {
   }
 }
 
-export { DESSERT, DESSERT_INSTANCE };
+export { DESSERT, DESSERT_INSTANCE, DessertController };
 export { DESSERT_INSTANCE as default };

@@ -57,6 +57,10 @@ var helpers = {
   /** @returns {*} */
   get registry() {
     return helpers.ctx.registry;
+  },
+  /** @returns {*} */
+  get controller() {
+    return helpers.ctx.core?.controller;
   }
 };
 
@@ -64,6 +68,137 @@ var helpers = {
 function log(...args) {
   if (helpers.options?.debug) console.log("[DESSERT]", ...args);
 }
+
+// src/core/controller.js
+var DessertController = class {
+  /**
+   * @param {Object} [ctx={}]
+   */
+  constructor(ctx = {}) {
+    this.core = ctx.core || null;
+    this._listeners = /* @__PURE__ */ new Map();
+    this._state = /* @__PURE__ */ new Map();
+    this._activeInstances = /* @__PURE__ */ new Set();
+  }
+  /**
+   * Bind core instance reference.
+   * @param {Object} core
+   */
+  bindCore(core) {
+    this.core = core;
+  }
+  /**
+   * Register an event listener (Pub/Sub).
+   * @param {string} event
+   * @param {Function} handler
+   * @returns {() => void} Unsubscribe function
+   */
+  on(event, handler) {
+    if (!this._listeners.has(event)) {
+      this._listeners.set(event, /* @__PURE__ */ new Set());
+    }
+    this._listeners.get(event).add(handler);
+    return () => this.off(event, handler);
+  }
+  /**
+   * Remove an event listener.
+   * @param {string} event
+   * @param {Function} handler
+   */
+  off(event, handler) {
+    const handlers = this._listeners.get(event);
+    if (handlers) {
+      handlers.delete(handler);
+      if (handlers.size === 0) this._listeners.delete(event);
+    }
+  }
+  /**
+   * Emit an event to all subscribers.
+   * @param {string} event
+   * @param {*} [payload]
+   */
+  emit(event, payload) {
+    const handlers = this._listeners.get(event);
+    if (handlers) {
+      handlers.forEach((fn) => {
+        try {
+          fn(payload);
+        } catch (err) {
+          console.error(`[DESSERT Controller] Error in listener for "${event}":`, err);
+        }
+      });
+    }
+    if (typeof window !== "undefined" && typeof window.dispatchEvent === "function" && typeof CustomEvent !== "undefined") {
+      window.dispatchEvent(new CustomEvent(`dessert:${event}`, { detail: payload }));
+    }
+  }
+  /**
+   * Set global controller state key-value.
+   * @param {string} key
+   * @param {*} value
+   */
+  setState(key, value) {
+    const prev = this._state.get(key);
+    this._state.set(key, value);
+    this.emit("state:change", { key, value, prev });
+  }
+  /**
+   * Get controller state.
+   * @param {string} key
+   * @param {*} [fallback=null]
+   * @returns {*}
+   */
+  getState(key, fallback = null) {
+    return this._state.has(key) ? this._state.get(key) : fallback;
+  }
+  /**
+   * Register an active component element in DOM.
+   * @param {HTMLElement} el
+   */
+  registerInstance(el) {
+    this._activeInstances.add(el);
+    this.emit("instance:registered", { el });
+  }
+  /**
+   * Unregister an active component element.
+   * @param {HTMLElement} el
+   */
+  unregisterInstance(el) {
+    this._activeInstances.delete(el);
+    this.emit("instance:unregistered", { el });
+  }
+  /**
+   * Close all active popups, dropdowns, and modals globally.
+   */
+  closeAll() {
+    if (typeof document === "undefined") return;
+    document.querySelectorAll(".dessert-modal.dessert-show").forEach((modal) => {
+      this.core?.modal?.close(modal);
+    });
+    document.querySelectorAll(".dessert-dropdown-menu.dessert-show").forEach((menu) => {
+      menu.classList.remove("dessert-show");
+    });
+    this.emit("dismiss:all");
+  }
+  /**
+   * Refresh and re-run DOM component bindings.
+   */
+  refresh() {
+    if (this.core) {
+      this.core.autoInit?.();
+      this.emit("lifecycle:refreshed");
+    }
+  }
+  /**
+   * Reset all controller listeners and states.
+   */
+  reset() {
+    this._listeners.clear();
+    this._state.clear();
+    this._activeInstances.clear();
+    this.emit("lifecycle:reset");
+  }
+};
 
 // src/core/DESSERT.js
 var DESSERT = class _DESSERT {
@@ -96,6 +231,7 @@ var DESSERT = class _DESSERT {
     this.version = VERSION;
     this.prefix = PREFIX;
     helpers.bind({ core: this, options, state, registry });
+    this.controller = new DessertController({ core: this });
     _DESSERT.#instance = this;
   }
   /**
@@ -107,6 +243,7 @@ var DESSERT = class _DESSERT {
     Object.assign(options, extra);
     if (options.autoInit) this.autoInit();
     registry.plugins.forEach((plugin) => plugin.init?.(this));
+    this.controller.emit("init", { version: VERSION, options });
     log(`DESSERT v${VERSION} initialized`);
     return this;
   }
@@ -353,6 +490,7 @@ var modalAPI = {
       );
       f?.focus();
     }, 100);
+    helpers.controller?.emit("modal:open", { el, id: el.id });
     log("modal open:", el.id);
   },
   /**
@@ -367,12 +505,14 @@ var modalAPI = {
       document.body.style.overflow = "";
       state.lastFocused?.focus();
     }, 300);
+    helpers.controller?.emit("modal:close", { el, id: el.id });
     log("modal close:", el.id);
   }
 };
 
 // src/api/alertAPI.js
 function alertAPI(msg, type = "info", duration = 3e3) {
+  helpers.controller?.emit("alert:show", { message: msg, type, duration });
   let container = document.querySelector(".dessert-alert-container");
   if (!container) {
     container = document.createElement("div");
@@ -442,6 +582,7 @@ if (typeof document !== "undefined") {
 export {
   DESSERT,
   DESSERT_INSTANCE,
+  DessertController,
   DESSERT_INSTANCE as default
 };
 //# sourceMappingURL=dessert.esm.js.map

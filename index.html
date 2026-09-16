@@ -197,9 +197,28 @@
       </div>
     </div>
 
-    <!-- 7. In-Browser Test Suite -->
+    <!-- 7. Centralized Controller Hub -->
     <div class="demo-section-title">
-      <span>7. Built-in Test Suite</span>
+      <span>7. Centralized Controller Hub</span>
+      <span class="demo-tag">DESSERT.controller</span>
+    </div>
+    <div class="dessert-card">
+      <p style="font-size: 13px; color: #64748b; margin-top: 0;">
+        Orchestrates Pub/Sub events, global lifecycle, component states, and emergency global dismissals.
+      </p>
+      <div class="demo-btn-group">
+        <button class="dessert-btn dessert-btn-info" id="btnEmitEvent">Emit Custom Event</button>
+        <button class="dessert-btn dessert-btn-warning" id="btnToggleTheme">Toggle State (Theme)</button>
+        <button class="dessert-btn dessert-btn-danger" id="btnCloseAll">controller.closeAll()</button>
+      </div>
+      <div style="margin-top: 12px; padding: 10px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
+        Controller State: <strong id="controllerStateDisplay" style="color: #6c5ce7;">theme = light</strong>
+      </div>
+    </div>
+
+    <!-- 8. In-Browser Test Suite -->
+    <div class="demo-section-title">
+      <span>8. Built-in Test Suite</span>
       <span class="demo-tag" id="testStats">Running tests...</span>
     </div>
     <div class="dessert-card">
@@ -299,6 +318,37 @@
         }
       };
 
+      // Controller interactive handlers
+      DESSERT.controller.setState('theme', 'light');
+
+      DESSERT.controller.on('theme:change', ({ theme }) => {
+        document.getElementById('controllerStateDisplay').textContent = `theme = ${theme}`;
+        addLog(`[Controller Event] Theme changed to: ${theme}`);
+      });
+
+      DESSERT.controller.on('custom:ping', (data) => {
+        addLog(`[Controller Event] Received custom:ping → ${JSON.stringify(data)}`);
+        DESSERT.alert(`Controller received ping: ${data.sender}`, 'info');
+      });
+
+      document.getElementById('btnEmitEvent').onclick = () => {
+        DESSERT.controller.emit('custom:ping', { sender: 'Demo UI', timestamp: Date.now() });
+      };
+
+      document.getElementById('btnToggleTheme').onclick = () => {
+        const curr = DESSERT.controller.getState('theme', 'light');
+        const next = curr === 'light' ? 'dark' : 'light';
+        DESSERT.controller.setState('theme', next);
+        DESSERT.controller.emit('theme:change', { theme: next });
+        DESSERT.alert(`Theme state switched to: ${next}`, 'warning');
+      };
+
+      document.getElementById('btnCloseAll').onclick = () => {
+        DESSERT.controller.closeAll();
+        addLog('[Controller] closeAll() triggered — dismissed all active modals and menus.');
+        DESSERT.alert('Closed all modals & menus', 'danger');
+      };
+
       // Clear cache demo
       document.getElementById('btnClearCache').onclick = () => {
         DESSERT.load.clearCache();
@@ -343,6 +393,27 @@
           typeof DESSERT.load.sequence === 'function'
         });
         tests.push({ name: 'Loader: cache is Map instance', pass: DESSERT.load.cache instanceof Map });
+
+        // Controller unit tests in browser
+        tests.push({ name: 'Controller: DESSERT.controller exists', pass: typeof DESSERT.controller === 'object' });
+        tests.push({ name: 'Controller: on/off/emit are functions', pass:
+          typeof DESSERT.controller.on === 'function' &&
+          typeof DESSERT.controller.off === 'function' &&
+          typeof DESSERT.controller.emit === 'function'
+        });
+        tests.push({ name: 'Controller: getState/setState/closeAll exist', pass:
+          typeof DESSERT.controller.getState === 'function' &&
+          typeof DESSERT.controller.setState === 'function' &&
+          typeof DESSERT.controller.closeAll === 'function'
+        });
+        tests.push({ name: 'Controller: pub/sub event delivery', pass: (() => {
+          let testVal = 0;
+          const stop = DESSERT.controller.on('internal:test', (val) => { testVal = val; });
+          DESSERT.controller.emit('internal:test', 42);
+          stop();
+          DESSERT.controller.emit('internal:test', 99);
+          return testVal === 42;
+        })() });
 
         const container = document.getElementById('testResultsList');
         container.innerHTML = '';

@@ -63,3 +63,4 @@ globalThis.DESSERT = DESSERT;
 
 await import('./dessert.test.js');
 await import('./loader.test.js');
+await import('./controller.test.js');

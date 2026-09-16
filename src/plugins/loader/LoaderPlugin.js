@@ -65,7 +65,7 @@ class LoaderPlugin {
    * @returns {void}
    */
   init(core) {
-    // no-op
+    core?.controller?.emit('plugin:loader:ready', { version: VERSION });
   }
 }
 

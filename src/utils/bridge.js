@@ -44,6 +44,9 @@ const helpers = {
 
   /** @returns {*} */
   get registry() { return helpers.ctx.registry; },
+
+  /** @returns {*} */
+  get controller() { return helpers.ctx.core?.controller; },
 };
 
 export { helpers };

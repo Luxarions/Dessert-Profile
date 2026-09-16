@@ -328,6 +328,7 @@ var LoaderPlugin = class _LoaderPlugin {
    * @returns {void}
    */
   init(core) {
+    core?.controller?.emit("plugin:loader:ready", { version: VERSION });
   }
 };
 var loaderPlugin = new LoaderPlugin();

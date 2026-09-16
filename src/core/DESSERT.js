@@ -7,6 +7,7 @@ import { state, options } from './state.js';
 import { registry } from './registry.js';
 import { helpers } from '../utils/bridge.js';
 import { log } from '../utils/logger.js';
+import { DessertController } from './controller.js';
 
 /**
  * @typedef {Object} DessertConfig
@@ -63,6 +64,12 @@ class DESSERT {
 
     helpers.bind({ core: this, options, state, registry });
 
+    /**
+     * @description Centralized controller and event bus.
+     * @type {DessertController}
+     */
+    this.controller = new DessertController({ core: this });
+
     DESSERT.#instance = this;
   }
 
@@ -77,6 +84,8 @@ class DESSERT {
     if (options.autoInit) this.autoInit();
 
     registry.plugins.forEach((plugin) => plugin.init?.(this));
+
+    this.controller.emit('init', { version: VERSION, options });
 
     log(`DESSERT v${VERSION} initialized`);
     return this;

@@ -3,6 +3,7 @@
  */
 
 import { addClass, removeClass } from '../utils/classNames.js';
+import { helpers } from '../utils/bridge.js';
 
 /**
  * @typedef {'info'|'success'|'warning'|'danger'} AlertType
@@ -16,6 +17,8 @@ import { addClass, removeClass } from '../utils/classNames.js';
  * @returns {void}
  */
 function alertAPI(msg, type = 'info', duration = 3000) {
+  helpers.controller?.emit('alert:show', { message: msg, type, duration });
+
   let container = document.querySelector('.dessert-alert-container');
   if (!container) {
     container = document.createElement('div');
