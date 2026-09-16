@@ -21,7 +21,7 @@
 
 ## 🌐 Live Demo & Showcase
 
-- **Edge Proxy (Official Showcase)**: [https://dessert-studios.bay-nisdhilla7.workers.dev](https://dessert-studios.bay-nisdhilla7.workers.dev)
+- **Edge Proxy (Official Showcase)**: [https://dessert-studios.luxarion-framework.workers.dev](https://dessert-studios.luxarion-framework.workers.dev)
 - **Direct Edge (Vercel)**: [https://dessert-profile.vercel.app](https://dessert-profile.vercel.app)
 
 ---
@@ -296,7 +296,7 @@ npm run serve
 
 To mask upstream origin hosts and provide clean branded CDN and demo endpoints:
 
-A standalone reverse proxy script is available in `proxy/worker.js`, deployable for free on **Cloudflare Workers** (with a public URL such as `https://dessert-studios.bay-nisdhilla7.workers.dev` without requiring a custom domain).
+A standalone reverse proxy script is available in `proxy/worker.js`, deployable for free on **Cloudflare Workers** (with a public URL such as `https://dessert-studios.luxarion-framework.workers.dev` without requiring a custom domain).
 
 - Strips upstream headers (`x-vercel-id`, `x-vercel-cache`, and `server: Vercel`).
 - Injects custom brand server headers: `Server: DESSERT-Engine/2.0`.

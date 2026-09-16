@@ -6,7 +6,7 @@ Setup guide for a free reverse proxy endpoint to mask the upstream origin host w
 
 ## 🎯 Key Benefits:
 
-* **Active Production Endpoint**: [https://dessert-studios.bay-nisdhilla7.workers.dev](https://dessert-studios.bay-nisdhilla7.workers.dev)
+* **Active Production Endpoint**: [https://dessert-studios.luxarion-framework.workers.dev](https://dessert-studios.luxarion-framework.workers.dev)
 * **100% Upstream Origin Masking**: Automatically removes headers such as `x-vercel-id`, `x-vercel-cache`, and `server: Vercel`.
 * **Custom Brand Headers**: Replaces server identity with `Server: DESSERT-Engine/2.0`.
 * **Universal CORS Enabled**: Assets and scripts can be requested by external websites without CORS friction.
@@ -18,10 +18,10 @@ Setup guide for a free reverse proxy endpoint to mask the upstream origin host w
 
 | Usage | Public Proxy URL |
 | :--- | :--- |
-| **Showcase & Interactive Demo** | `https://dessert-studios.bay-nisdhilla7.workers.dev/` |
-| **Framework CSS Bundle** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.min.css` |
-| **Core JS Bundle (UMD)** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.umd.min.js` |
-| **Asset Loader Plugin (UMD)** | `https://dessert-studios.bay-nisdhilla7.workers.dev/dist/loader.umd.min.js` |
+| **Showcase & Interactive Demo** | `https://dessert-studios.luxarion-framework.workers.dev/` |
+| **Framework CSS Bundle** | `https://dessert-studios.luxarion-framework.workers.dev/dist/dessert.min.css` |
+| **Core JS Bundle (UMD)** | `https://dessert-studios.luxarion-framework.workers.dev/dist/dessert.umd.min.js` |
+| **Asset Loader Plugin (UMD)** | `https://dessert-studios.luxarion-framework.workers.dev/dist/loader.umd.min.js` |
 
 ---
 
@@ -45,11 +45,11 @@ Done! Your clean vanity proxy URL is now live at:
 
 ```html
 <!-- DESSERT Framework Stylesheet via Edge Proxy -->
-<link rel="stylesheet" href="https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.min.css" />
+<link rel="stylesheet" href="https://dessert-studios.luxarion-framework.workers.dev/dist/dessert.min.css" />
 
 <!-- DESSERT Core Library via Edge Proxy -->
-<script src="https://dessert-studios.bay-nisdhilla7.workers.dev/dist/dessert.umd.min.js"></script>
+<script src="https://dessert-studios.luxarion-framework.workers.dev/dist/dessert.umd.min.js"></script>
 
 <!-- Optional Asset Loader Plugin -->
-<script src="https://dessert-studios.bay-nisdhilla7.workers.dev/dist/loader.umd.min.js"></script>
+<script src="https://dessert-studios.luxarion-framework.workers.dev/dist/loader.umd.min.js"></script>
 ```
