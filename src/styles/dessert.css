@@ -17,19 +17,22 @@
   --dessert-radius: 10px;
   --dessert-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   --dessert-transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  --dessert-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --dessert-font: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* Strict Clean Sans-Serif Typography Lock */
+body,
+html,
 .dessert-reset,
 .dessert-reset *,
-.dessert-reset button,
-.dessert-reset input,
-.dessert-reset select,
-.dessert-reset textarea {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.dessert-card,
+.dessert-btn,
+.dessert-badge,
+.dessert-accordion,
+.dessert-tabs,
+.dessert-modal,
+.dessert-dropdown,
+.dessert-alert {
   font-family: var(--dessert-font) !important;
   font-style: normal !important;
   -webkit-font-smoothing: antialiased;
